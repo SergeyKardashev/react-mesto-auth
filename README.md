@@ -28,6 +28,6 @@
 
 **GitHub Pages**
 
-- [Ссылка на проект на GitHub Pages](https://sergeykardashev.github.io/mesto-react-auth/)
+- [Ссылка на проект на GitHub Pages](https://sergeykardashev.github.io/react-mesto-auth/)
 
 Обновлено 2023-09-30 at 21:07 +7GMT
