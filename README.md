@@ -30,4 +30,4 @@
 
 - [Ссылка на проект на GitHub Pages](https://sergeykardashev.github.io/mesto-react-auth/)
 
-Обновлено 2023-09-00 at 20:53 +7GMT
+Обновлено 2023-09-30 at 21:07 +7GMT
