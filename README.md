@@ -2,7 +2,7 @@
 
 ### Описание проекта
 
-Учебный проект для отработки навыков программирования на javascript и создания разметки на html и css.
+Учебный проект для отработки навыков программирования на javascript и чуток html и css.
 
 **Технологии**
 
@@ -18,6 +18,8 @@
 - запросы к серверу
 - webpack
 - React
+- роутинг
+- авторизация
 - iron butt
 
 **Исходник**
@@ -26,6 +28,6 @@
 
 **GitHub Pages**
 
-- [Ссылка на проект на GitHub Pages](https://sergeykardashev.github.io/mesto-react/)
+- [Ссылка на проект на GitHub Pages](https://sergeykardashev.github.io/mesto-react-auth/)
 
-Обновлено 2023-09-10 at 18:30 +7GMT
+Обновлено 2023-09-00 at 20:53 +7GMT

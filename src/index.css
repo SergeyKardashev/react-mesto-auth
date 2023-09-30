@@ -15,6 +15,16 @@
 /* возможно лишний класс */
 @import url(./blocks/main/main.css);
 
+/* auth - компоненты register и login */
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__button/auth__button.css);
+@import url(./blocks/auth/__fieldset/auth__fieldset.css);
+@import url(./blocks/auth/__form/auth__form.css);
+@import url(./blocks/auth/__header/auth__header.css);
+@import url(./blocks/auth/__input/auth__input.css);
+@import url(./blocks/auth/__paragraph/auth__paragraph.css);
+@import url(./blocks/auth/__paragraph-link/auth__paragraph-link.css);
+
 /* profile */
 
 @import url(./blocks/profile/profile.css);
@@ -57,12 +67,15 @@
 @import url(./blocks/popup/__close-button/popup__close-button.css);
 @import url(./blocks/popup/__close-button/_type/popup__close-button_type_zoom-image.css);
 @import url(./blocks/popup/__heading/popup__heading.css);
+@import url(./blocks/popup/__heading/_type/popup__heading_type_infotooltip.css);
 
 @import url(./blocks/popup/_opened/popup_opened.css);
 @import url(./blocks/popup/__image-zoom/popup__image-zoom.css);
 @import url(./blocks/popup/__container/_type/popup__container_type_zoom-image.css);
+@import url(./blocks/popup/__container/_type/popup__container_type_infotooltip.css);
 @import url(./blocks/popup/__caption/popup__caption.css);
 @import url(./blocks/popup/_type/popup_type_zoom-image.css);
+@import url(./blocks/popup/__info-tooltip-img/popup__info-tooltip-img.css);
 
 /* форма */
 @import url(./blocks/popup/__form/popup__form.css);
