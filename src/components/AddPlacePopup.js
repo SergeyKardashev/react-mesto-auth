@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-  const { onClose, isOpen, onAddPlace } = props;
+  const { onClose, isOpen, onAddPlace, isLoading } = props;
 
   const [formValues, setFormValues] = useState({ placeName: "", placeUrl: "" });
 
@@ -18,7 +18,7 @@ function AddPlacePopup(props) {
 
   React.useEffect(() => {
     setFormValues({ placeName: "", placeUrl: "" });
-  }, []);
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -27,7 +27,7 @@ function AddPlacePopup(props) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleAddPlace}
-      buttonLabel="Создать"
+      buttonLabel={isLoading ? "Создание..." : "Создать"}
     >
       <input
         name="placeName"

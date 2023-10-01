@@ -29,6 +29,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,33 +109,47 @@ function App() {
   }
 
   function handleUpdateUser(userData) {
+    setIsLoading(true);
     api
       .setUserInfo(userData)
       .then((res) => {
         setCurrentUser(res);
-        closeAllPopups();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        closeAllPopups();
+        setIsLoading(false);
+      });
   }
 
   function handleUpdateAvatar(avatarData) {
+    setIsLoading(true);
     api
       .setUserAvatar(avatarData)
       .then((res) => {
         setCurrentUser(res);
-        closeAllPopups();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        closeAllPopups();
+        setIsLoading(false);
+      });
   }
 
   function handleAddPlaceSubmit(card) {
+    setIsLoading(true);
     api
       .addCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups();
+        // отключил тк в финале есть
+        // closeAllPopups();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        closeAllPopups(); // Добавил. Не уверен что нужно тут.
+        setIsLoading(false);
+      });
   }
 
   function cbLogin(password, email) {
@@ -225,11 +241,26 @@ function App() {
         <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isRegistered={isRegistered} />
       </div>
 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+        isLoading={isLoading}
+      />
 
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+        isLoading={isLoading}
+      />
 
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onAddPlace={handleAddPlaceSubmit}
+        isLoading={isLoading}
+      />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>

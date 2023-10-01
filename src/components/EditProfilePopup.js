@@ -4,7 +4,7 @@ import { useState } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function EditProfilePopup(props) {
-  const { isOpen, onClose, onUpdateUser } = props;
+  const { isOpen, onClose, onUpdateUser, isLoading } = props;
 
   // стейт-переменные name и description обновляются в 3 случаях:
   // 1) при изменении контекста currentUser; 2) при изменении значения полей ввода (ввод/правка); 3) при открытии попапа (обновление переменной isOpen)
@@ -43,7 +43,7 @@ function EditProfilePopup(props) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonLabel="Сохранить"
+      buttonLabel={isLoading ? "Сохранение..." : "Сохранить"}
     >
       <input
         className="popup__input popup__input_type_user-name"

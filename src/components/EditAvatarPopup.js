@@ -2,13 +2,12 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
-  const { onClose, isOpen, onUpdateAvatar } = props;
+  const { onClose, isOpen, onUpdateAvatar, isLoading } = props;
 
   const avatarRef = React.useRef(); // записываю реф - заношу объект, возвращаемый хуком, в переменную
 
   function handleSubmit(e) {
     e.preventDefault();
-
     onUpdateAvatar({ avatar: avatarRef.current.value }); // использую реф для получения значения инпута
   }
 
@@ -24,7 +23,7 @@ function EditAvatarPopup(props) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonLabel="Сохранить"
+      buttonLabel={isLoading ? "Сохранение..." : "Сохранить"}
     >
       <input
         className="popup__input popup__input_type_avatar"
