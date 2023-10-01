@@ -60,9 +60,7 @@ function App() {
         setCards(initialCards);
         setCurrentUser(userInfo);
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   }, []);
 
   function handleEditProfileClick() {
@@ -142,12 +140,15 @@ function App() {
   }
 
   function cbLogin(password, email) {
-    apiAuth.authorize(password, email).then((dataUser) => {
-      setUserEmail(email);
-      navigate("/", { replace: true });
-      setLoggedIn(true);
-      return dataUser;
-    });
+    apiAuth
+      .authorize(password, email)
+      .then((dataUser) => {
+        setUserEmail(email);
+        navigate("/", { replace: true });
+        setLoggedIn(true);
+        return dataUser;
+      })
+      .catch(console.error);
   }
 
   function cbRegister(userData) {
@@ -158,7 +159,8 @@ function App() {
         setIsInfoTooltipOpen(true);
         navigate("/sign-in", { replace: true });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
         setIsRegistered(false);
         setIsInfoTooltipOpen(true);
       });
