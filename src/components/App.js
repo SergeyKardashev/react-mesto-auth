@@ -101,10 +101,7 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        const filteredCards = cards.filter((i) => {
-          return i !== card;
-        });
-        setCards(filteredCards);
+        setCards((cards) => cards.filter((item) => item._id !== card._id));
       })
       .catch(console.error);
   }
