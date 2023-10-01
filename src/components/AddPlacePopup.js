@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import AppContext from "../contexts/AppContext";
+import { usePopupClose } from "../hooks/usePopupClose";
 
 function AddPlacePopup(props) {
   const { isOpen, onAddPlace } = props;
@@ -8,6 +9,9 @@ function AddPlacePopup(props) {
   const [formValues, setFormValues] = useState({ placeName: "", placeUrl: "" });
 
   const { isLoading, closeAllPopups } = React.useContext(AppContext);
+  const onClose = closeAllPopups;
+
+  usePopupClose(isOpen, onClose);
 
   function handleAddPlace(e) {
     e.preventDefault();
