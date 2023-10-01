@@ -1,8 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 function Login(props) {
   const { onSubmit } = props;
 
   const [formValue, setFormValue] = useState({ email: "", password: "" });
+
+  React.useEffect(() => {
+    setFormValue({ email: "", password: "" });
+  }, []);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -27,6 +31,7 @@ function Login(props) {
         <fieldset className="auth__fieldset">
           <input
             name="email"
+            value={formValue.email}
             onChange={handleChange}
             className="auth__input"
             placeholder="Email"
@@ -35,6 +40,7 @@ function Login(props) {
           ></input>
           <input
             name="password"
+            value={formValue.password}
             onChange={handleChange}
             className="auth__input"
             placeholder="Пароль"
