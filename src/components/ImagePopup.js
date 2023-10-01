@@ -1,7 +1,11 @@
 import React from "react";
+import { usePopupClose } from "../hooks/usePopupClose";
 
 function ImagePopup({ card, onClose }) {
   const { _id: cardId, link: cardLink, name: cardName } = card;
+
+  // usePopupClose(isOpen, onClose);
+  usePopupClose(card?.link, onClose);
 
   return (
     <div className={`popup popup_type_zoom-image ${cardId ? "popup_opened" : ""}`}>

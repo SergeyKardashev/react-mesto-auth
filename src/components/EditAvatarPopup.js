@@ -1,11 +1,16 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import AppContext from "../contexts/AppContext";
+import { usePopupClose } from "../hooks/usePopupClose";
 
 function EditAvatarPopup(props) {
   const { isOpen, onUpdateAvatar } = props;
 
   const { isLoading, closeAllPopups } = React.useContext(AppContext);
+  const onClose = closeAllPopups;
+
+  usePopupClose(isOpen, onClose);
+
   const avatarRef = React.useRef(); // записываю реф - заношу объект, возвращаемый хуком, в переменную
 
   function handleSubmit(e) {

@@ -3,15 +3,20 @@ import PopupWithForm from "./PopupWithForm";
 import { useState } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import AppContext from "../contexts/AppContext";
+import { usePopupClose } from "../hooks/usePopupClose";
 
 function EditProfilePopup(props) {
   const { isOpen, onUpdateUser } = props;
+
+  const { isLoading, closeAllPopups } = React.useContext(AppContext);
+  const onClose = closeAllPopups;
+
+  usePopupClose(isOpen, onClose);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   const currentUser = React.useContext(CurrentUserContext);
-  const { isLoading, closeAllPopups } = React.useContext(AppContext);
 
   React.useEffect(() => {
     setName(currentUser.name);
