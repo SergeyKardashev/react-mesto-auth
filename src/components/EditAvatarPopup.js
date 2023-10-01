@@ -1,9 +1,11 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import AppContext from "../contexts/AppContext";
 
 function EditAvatarPopup(props) {
-  const { onClose, isOpen, onUpdateAvatar, isLoading } = props;
+  const { isOpen, onUpdateAvatar } = props;
 
+  const { isLoading, closeAllPopups } = React.useContext(AppContext);
   const avatarRef = React.useRef(); // записываю реф - заношу объект, возвращаемый хуком, в переменную
 
   function handleSubmit(e) {
@@ -21,7 +23,7 @@ function EditAvatarPopup(props) {
       name="avatar-form"
       title="Обновить аватар"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={closeAllPopups}
       onSubmit={handleSubmit}
       buttonLabel={isLoading ? "Сохранение..." : "Сохранить"}
     >

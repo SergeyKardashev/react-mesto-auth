@@ -15,6 +15,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
 import { getToken, removeToken } from "../utils/token";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import AppContext from "../contexts/AppContext";
 import { apiAuth } from "../utils/apiAuth";
 
 function App() {
@@ -186,84 +187,81 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header email={userEmail} onSignOut={cbSignOut} />
-                <ProtectedRoute
-                  element={Main}
-                  loggedIn={loggedIn}
-                  cards={cards}
-                  setCards={setCards}
-                  onCardClick={handleCardClick}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete}
-                  onEditProfile={handleEditProfileClick}
-                  onAddPlace={handleAddPlaceClick}
-                  onEditAvatar={handleEditAvatarClick}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/sign-up"
-            element={
-              <>
-                <Header email={false} onSignOut={cbSignOut} />
-                <Register onSubmit={cbRegister} />
-              </>
-            }
-          />
-          <Route
-            path="/sign-in"
-            element={
-              <>
-                <Header email={false} onSignOut={cbSignOut} />
-                <Login onSubmit={cbLogin} />
-              </>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <>
-                <Header email={false} onSignOut={cbSignOut} />
-                <Login onSubmit={cbLogin} />
-              </>
-            }
-          />
-        </Routes>
-        {loggedIn && <Footer />}
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isRegistered={isRegistered} />
-      </div>
+    <AppContext.Provider value={{ isLoading, closeAllPopups }}>
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="page">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Header email={userEmail} onSignOut={cbSignOut} />
+                  <ProtectedRoute
+                    element={Main}
+                    loggedIn={loggedIn}
+                    cards={cards}
+                    setCards={setCards}
+                    onCardClick={handleCardClick}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onEditAvatar={handleEditAvatarClick}
+                  />
+                </>
+              }
+            />
+            <Route
+              path="/sign-up"
+              element={
+                <>
+                  <Header email={false} onSignOut={cbSignOut} />
+                  <Register onSubmit={cbRegister} />
+                </>
+              }
+            />
+            <Route
+              path="/sign-in"
+              element={
+                <>
+                  <Header email={false} onSignOut={cbSignOut} />
+                  <Login onSubmit={cbLogin} />
+                </>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <>
+                  <Header email={false} onSignOut={cbSignOut} />
+                  <Login onSubmit={cbLogin} />
+                </>
+              }
+            />
+          </Routes>
+          {loggedIn && <Footer />}
+          <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isRegistered={isRegistered} />
+        </div>
 
-      <EditProfilePopup
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        onUpdateUser={handleUpdateUser}
-        isLoading={isLoading}
-      />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} />
 
-      <EditAvatarPopup
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        onUpdateAvatar={handleUpdateAvatar}
-        isLoading={isLoading}
-      />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
+        />
 
-      <AddPlacePopup
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        onAddPlace={handleAddPlaceSubmit}
-        isLoading={isLoading}
-      />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
+        />
 
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-    </CurrentUserContext.Provider>
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      </CurrentUserContext.Provider>
+    </AppContext.Provider>
   );
 }
 export default App;

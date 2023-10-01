@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
+import AppContext from "../contexts/AppContext";
 
 function AddPlacePopup(props) {
-  const { onClose, isOpen, onAddPlace, isLoading } = props;
+  const { isOpen, onAddPlace } = props;
 
   const [formValues, setFormValues] = useState({ placeName: "", placeUrl: "" });
+
+  const { isLoading, closeAllPopups } = React.useContext(AppContext);
 
   function handleAddPlace(e) {
     e.preventDefault();
@@ -25,7 +28,7 @@ function AddPlacePopup(props) {
       name="add-place-form"
       title="Новое место"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={closeAllPopups}
       onSubmit={handleAddPlace}
       buttonLabel={isLoading ? "Создание..." : "Создать"}
     >
