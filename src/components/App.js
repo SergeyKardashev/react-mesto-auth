@@ -88,10 +88,8 @@ function App() {
   }
 
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -109,48 +107,35 @@ function App() {
       .catch(console.error);
   }
 
-  function handleUpdateUser(userData) {
+  // универсальный обработчик запросов сабмитов от попапов. Примет запрос и обработает then, catch, finally
+  function handleSubmit(request) {
     setIsLoading(true);
-    api
-      .setUserInfo(userData)
-      .then((res) => {
-        setCurrentUser(res);
-      })
+    request()
+      .then(closeAllPopups)
       .catch(console.error)
       .finally(() => {
-        closeAllPopups();
         setIsLoading(false);
       });
+  }
+
+  function handleUpdateUser(inputValues) {
+    handleSubmit(() => {
+      return api.setUserInfo(inputValues).then(setCurrentUser);
+    });
   }
 
   function handleUpdateAvatar(avatarData) {
-    setIsLoading(true);
-    api
-      .setUserAvatar(avatarData)
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch(console.error)
-      .finally(() => {
-        closeAllPopups();
-        setIsLoading(false);
-      });
+    handleSubmit(() => {
+      return api.setUserAvatar(avatarData).then(setCurrentUser);
+    });
   }
 
   function handleAddPlaceSubmit(card) {
-    setIsLoading(true);
-    api
-      .addCard(card)
-      .then((newCard) => {
+    handleSubmit(() => {
+      return api.addCard(card).then((newCard) => {
         setCards([newCard, ...cards]);
-        // отключил тк в финале есть
-        // closeAllPopups();
-      })
-      .catch(console.error)
-      .finally(() => {
-        closeAllPopups(); // Добавил. Не уверен что нужно тут.
-        setIsLoading(false);
       });
+    });
   }
 
   function cbLogin(password, email) {
