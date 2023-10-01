@@ -39,13 +39,15 @@ function App() {
     const token = getToken();
 
     if (token) {
-      apiAuth.validateToken(token).then((response) => {
-        // --- !!! в ответе объект data, в нем 2 поля _id, email !!! ---
-        setUserEmail(response.data.email);
-        setLoggedIn(true);
-        navigate("/", { replace: true });
-      });
-    } else {
+      apiAuth
+        .validateToken(token)
+        .then((response) => {
+          // --- !!! в ответе объект data, в нем 2 поля _id, email !!! ---
+          setUserEmail(response.data.email);
+          setLoggedIn(true);
+          navigate("/", { replace: true });
+        })
+        .catch(console.error);
     }
   }
 
@@ -89,9 +91,12 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      })
+      .catch(console.error);
   }
 
   function handleCardDelete(card) {
@@ -126,9 +131,9 @@ function App() {
       .catch(console.error);
   }
 
-  function handleAddPlaceSubmit(Card) {
+  function handleAddPlaceSubmit(card) {
     api
-      .addCard(Card)
+      .addCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
