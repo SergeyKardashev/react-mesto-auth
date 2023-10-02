@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { getToken } from "../utils/token";
 
 function Register({ onSubmit }) {
   //
-  const navigate = useNavigate();
-
-  // добавил после вебинара
-  // useEffect(() => {
-  //   console.log("токен чек и если ок, то редирект из регистрации");
-  //   if (getToken()) {
-  //     navigate("/");
-  //   }
-  // }, []);
-
   const [formValue, setFormValue] = useState({ email: "", password: "" });
 
   function handleChange(e) {
