@@ -3,56 +3,48 @@ import logoPath from "../images/logo.svg";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 function Header(props) {
-  let location = useLocation();
-
-  let linkMarkUp = "";
-
-  if (location.pathname === "/") {
-    linkMarkUp = (
-      <span onClick={props.onSignOut} className="header__profile header__profile_dimmed">
-        Выйти
-      </span>
-    );
-  }
-
-  if (location.pathname === "/sign-up") {
-    linkMarkUp = (
-      <Link to="/sign-in" replace className="header__profile">
-        Войти
-      </Link>
-    );
-  }
-
-  if (location.pathname === "/sign-in") {
-    linkMarkUp = (
-      <Link to="/sign-up" replace className="header__profile">
-        Регистрация
-      </Link>
-    );
-  }
+  const location = useLocation();
+  console.log(location);
 
   return (
-    // <header className="header page__header">
-    //   <img className="header__logo" src={logoPath} alt="лого проекта Место" />
-    //   <Routes>
-    //     <Route path="/">
-    //       <p className="header__profile">
-    //         <span className="header__profile-email">{props.email}</span>
-    //         <span onClick={props.onSignOut} className="header__profile header__profile_dimmed">
-    //           Выйти
-    //         </span>
-    //       </p>
-    //     </Route>
-    //   </Routes>
-    // </header>
     <header className="header page__header">
       <img className="header__logo" src={logoPath} alt="лого проекта Место" />
-      <p className="header__profile">
-        <span className="header__profile-email">{props.email}</span>
-        {linkMarkUp}
-      </p>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <p className="header__profile">
+              <span className="header__profile-email">{props.email}</span>
+              <span onClick={props.onSignOut} className="header__profile header__profile_dimmed">
+                Выйти
+              </span>
+            </p>
+          }
+        />
+        <Route
+          path="/sign-up"
+          element={
+            <p className="header__profile">
+              <span className="header__profile-email">{props.email}</span>
+              <Link to="/sign-in" replace className="header__profile">
+                Войти
+              </Link>
+            </p>
+          }
+        />
+        <Route
+          path="/sign-in"
+          element={
+            <p className="header__profile">
+              <span className="header__profile-email">{props.email}</span>
+              <Link to="/sign-up" replace className="header__profile">
+                Регистрация
+              </Link>
+            </p>
+          }
+        />
+      </Routes>
     </header>
   );
 }
-
 export default Header;

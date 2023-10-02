@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getToken } from "../utils/token";
+import { useNavigate } from "react-router-dom";
+
 function Login(props) {
   const { onSubmit } = props;
 
+  const navigate = useNavigate();
+
   const [formValue, setFormValue] = useState({ email: "", password: "" });
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFormValue({ email: "", password: "" });
   }, []);
+
+  // добавил после вебинара
+  // useEffect(() => {
+  //   console.log("токен чек и если ок, то редирект из логина");
+  //   if (getToken()) {
+  //     navigate("/");
+  //   }
+  // }, []);
 
   function handleChange(e) {
     const { name, value } = e.target;

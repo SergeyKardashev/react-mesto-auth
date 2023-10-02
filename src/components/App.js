@@ -30,11 +30,12 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("токен чек");
     tokenCheck();
   }, []);
 
@@ -54,7 +55,7 @@ function App() {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const promisedInitialCards = api.getInitialCards();
     const promisedUserInfo = api.getUserInfo();
 
@@ -175,65 +176,35 @@ function App() {
     <AppContext.Provider value={{ isLoading, closeAllPopups }}>
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
+          <Header email={userEmail} onSignOut={cbSignOut} />
           <Routes>
             <Route
               path="/"
               element={
-                <>
-                  <Header email={userEmail} onSignOut={cbSignOut} />
-                  <ProtectedRoute
-                    element={Main}
-                    loggedIn={loggedIn}
-                    cards={cards}
-                    setCards={setCards}
-                    onCardClick={handleCardClick}
-                    onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete}
-                    onEditProfile={handleEditProfileClick}
-                    onAddPlace={handleAddPlaceClick}
-                    onEditAvatar={handleEditAvatarClick}
-                  />
-                </>
+                <ProtectedRoute
+                  element={Main}
+                  loggedIn={loggedIn}
+                  cards={cards}
+                  setCards={setCards}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                />
               }
             />
-            <Route
-              path="/sign-up"
-              element={
-                <>
-                  <Header email={false} onSignOut={cbSignOut} />
-                  <Register onSubmit={cbRegister} />
-                </>
-              }
-            />
-            <Route
-              path="/sign-in"
-              element={
-                <>
-                  <Header email={false} onSignOut={cbSignOut} />
-                  <Login onSubmit={cbLogin} />
-                </>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <>
-                  <Header email={false} onSignOut={cbSignOut} />
-                  <Login onSubmit={cbLogin} />
-                </>
-              }
-            />
+            <Route path="/sign-up" element={<Register onSubmit={cbRegister} />} />
+            <Route path="/sign-in/*" element={<Login onSubmit={cbLogin} />} />
+            <Route path="*" element={<Login onSubmit={cbLogin} />} />
           </Routes>
           {loggedIn && <Footer />}
           <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isRegistered={isRegistered} />
         </div>
-
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} />
-
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} />
-
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onAddPlace={handleAddPlaceSubmit} />
-
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
     </AppContext.Provider>
