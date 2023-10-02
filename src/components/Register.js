@@ -53,4 +53,4 @@ function Register({ onSubmit }) {
   );
 }
 
-export { Register };
+export default Register;

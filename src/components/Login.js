@@ -21,7 +21,6 @@ function Login(props) {
       return;
     }
     onSubmit(password, email);
-    setFormValue({ email: "", password: "" });
   }
 
   return (
