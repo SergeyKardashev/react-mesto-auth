@@ -26,8 +26,8 @@
 
 - [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
-**GitHub Pages**
+**Репозиторий**
 
-- [Ссылка на проект на GitHub Pages](https://sergeykardashev.github.io/react-mesto-auth/)
+- [Ссылка на репозиторий на GitHub](https://github.com/SergeyKardashev/express-mesto-gha)
 
-Обновлено 2023-09-30 at 21:07 +7GMT
+Обновлено 2023-10-23 at 16:30 +7GMT
